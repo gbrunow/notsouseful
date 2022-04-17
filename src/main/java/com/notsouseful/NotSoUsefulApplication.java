@@ -1,5 +1,6 @@
 package com.notsouseful;
 
+import com.notsouseful.resources.HomeResource;
 import com.notsouseful.resources.NotSoUsefulResource;
 
 import io.dropwizard.Application;
@@ -26,6 +27,7 @@ public class NotSoUsefulApplication extends Application<NotSoUsefulConfiguration
     public void run(final NotSoUsefulConfiguration configuration,
                     final Environment environment) {
         environment.jersey().register(new NotSoUsefulResource());
+        environment.jersey().register(new HomeResource());
     }
 
 }

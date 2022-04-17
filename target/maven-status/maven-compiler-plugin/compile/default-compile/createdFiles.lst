@@ -1,3 +1,6 @@
-com/notsouseful/resources/NotSoUsefulResource.class
 com/notsouseful/NotSoUsefulApplication.class
 com/notsouseful/NotSoUsefulConfiguration.class
+com/notsouseful/core/Stats.class
+com/notsouseful/resources/NotSoUsefulResource.class
+com/notsouseful/resources/HomeResource.class
+com/notsouseful/resources/SafeBigDecimal.class
