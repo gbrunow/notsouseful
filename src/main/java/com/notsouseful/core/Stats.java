@@ -28,8 +28,7 @@ public class Stats {
                 .multiply(this.populationSize)
                 .subtract(this.average.multiply(this.populationSize).pow(2))
                 .divide(this.populationSize.pow(2), MathContext.DECIMAL128)
-                .sqrt(MathContext.DECIMAL128)
-                .setScale(5, RoundingMode.HALF_UP);
+                .sqrt(MathContext.DECIMAL128);
     }
 
     public void addSample(BigDecimal sample) {
