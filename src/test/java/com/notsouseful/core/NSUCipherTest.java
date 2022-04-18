@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-public class TestNSUCipher {
+public class NSUCipherTest {
     @Test
     public void testThatEncriptionResultsInDifferentNonEmptyString() {
         String message = "not so useful message";

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-public class TestEncryptedStats {
+public class EncryptedStatsTest {
 
     @Test
     public void testThatEncryptedIsDifferent() {

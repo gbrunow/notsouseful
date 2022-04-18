@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestStats {
+public class StatsTest {
     @Test
     public void testThatInitialValuesAreCorrect() {
         final Stats stats = new Stats();
