@@ -61,7 +61,6 @@ public class NSUCipher {
         String decrypted = "";
 
         try {
-            System.out.println(message);
             String parts[] = message.split(SEPARATOR, 2);
             String iv = parts[0];
             String encrypted = parts[1];
