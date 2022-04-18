@@ -17,7 +17,7 @@ mvn archetype:generate -DarchetypeGroupId=io.dropwizard.archetypes -DarchetypeAr
 ### Provision only 1 key for your system
 Assumption: they key is auto generated and can be reset when the application is restarted
 
-Alternative: pre generate a key, save it to a config file and read it each time.
+Alternative: pre generate a key, save it to a config file and read it each time the application starts up.
 
 ## Don't assume you have infinite RAM for storage of input numbers
 
