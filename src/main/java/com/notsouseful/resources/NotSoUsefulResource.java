@@ -1,11 +1,10 @@
 package com.notsouseful.resources;
 
+import com.notsouseful.core.EncryptedStats;
 import com.notsouseful.core.NSUCipher;
 import com.notsouseful.core.Stats;
-import javax.validation.constraints.NotEmpty;
-
 import java.math.BigDecimal;
-
+import javax.validation.constraints.NotEmpty;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.GET;
@@ -47,9 +46,10 @@ public class NotSoUsefulResource {
 
     @POST
     @Path("push-recalculate-and-encrypt")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String PushRecalculateAndEncrypt(@NotEmpty(message = "is missing a required parameter") String number) {
-        return NSUCipher.getInstance().encrypt(PushAndRecalculate(number).getStandardDeviation().toString());
+    @Produces(MediaType.APPLICATION_JSON)
+    public EncryptedStats PushRecalculateAndEncrypt(
+            @NotEmpty(message = "is missing a required parameter") String number) {
+        return new EncryptedStats(PushAndRecalculate(number));
     }
 
     @POST

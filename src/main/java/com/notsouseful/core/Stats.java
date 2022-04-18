@@ -2,7 +2,6 @@ package com.notsouseful.core;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,22 +12,6 @@ public class Stats {
 
     public Stats() {
 
-    }
-
-    @JsonProperty("average")
-    public BigDecimal getAverage() {
-        return this.average;
-    }
-
-    @JsonProperty("standardDeviation")
-    public BigDecimal getStandardDeviation() {
-        return this.populationSize.equals(BigDecimal.ZERO)
-                ? BigDecimal.ZERO
-                : this.sumOfSquares
-                        .multiply(this.populationSize)
-                        .subtract(this.average.multiply(this.populationSize).pow(2))
-                        .divide(this.populationSize.pow(2), MathContext.DECIMAL128)
-                        .sqrt(MathContext.DECIMAL128);
     }
 
     public void addSample(BigDecimal sample) {
@@ -45,5 +28,21 @@ public class Stats {
         }
 
         this.sumOfSquares = this.sumOfSquares.add(sample.pow(2));
+    }
+
+    @JsonProperty("average")
+    public BigDecimal getAverage() {
+        return this.average;
+    }
+
+    @JsonProperty("standardDeviation")
+    public BigDecimal getStandardDeviation() {
+        return this.populationSize.equals(BigDecimal.ZERO)
+                ? BigDecimal.ZERO
+                : this.sumOfSquares
+                        .multiply(this.populationSize)
+                        .subtract(this.average.multiply(this.populationSize).pow(2))
+                        .divide(this.populationSize.pow(2), MathContext.DECIMAL128)
+                        .sqrt(MathContext.DECIMAL128);
     }
 }
