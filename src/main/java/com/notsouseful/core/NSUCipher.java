@@ -22,6 +22,7 @@ public class NSUCipher {
     private static final int T_LEN = 128;
     private static final String KEY_GEN_ALGORITHM = "AES";
     private static final String CIPHER_ALGORITHM = "AES/GCM/NoPadding";
+    private static final String SEPARATOR = ",";
 
     private NSUCipher() {
         try {
@@ -54,14 +55,15 @@ public class NSUCipher {
             LOGGER.log(Level.SEVERE, ex.toString());
         }
 
-        return iv + "\n" + encrypted;
+        return iv + SEPARATOR + encrypted;
     }
 
     public String decrypt(String message) {
         String decrypted = "";
 
         try {
-            String parts[] = message.split("\n", 2);
+            System.out.println(message);
+            String parts[] = message.split(SEPARATOR, 2);
             String iv = parts[0];
             String encrypted = parts[1];
 

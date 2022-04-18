@@ -1,9 +1,11 @@
 package com.notsouseful.resources;
 
-import com.notsouseful.core.SafeBigDecimal;
+import com.notsouseful.core.NSUCipher;
 import com.notsouseful.core.Stats;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.Valid;
+
+import java.math.BigDecimal;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.GET;
@@ -17,22 +19,44 @@ public class NotSoUsefulResource {
     private Stats stats = new Stats();
 
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
     public String getNSU() {
         return "A Not So Useful Resource.";
+    }
+
+    @GET
+    @Path("stats")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Stats GetStats() {
+        return stats;
     }
 
     @POST
     @Path("push-and-recalculate")
     @Produces(MediaType.APPLICATION_JSON)
-    public Stats PushAndRecalculate(@Valid @NotEmpty(message = "is missing a required parameter") String number) {
-        SafeBigDecimal safe = new SafeBigDecimal(number);
+    public Stats PushAndRecalculate(@NotEmpty(message = "is missing a required parameter") String number) {
+        try {
+            BigDecimal decimal = new BigDecimal(number);
+            stats.addSample(decimal);
 
-        if (safe.getBigDecimal() == null) {
+            return stats;
+        } catch (NumberFormatException ex) {
             throw new WebApplicationException("invalid number", Status.BAD_REQUEST);
         }
-
-        this.stats.addSample(safe.getBigDecimal());
-
-        return this.stats;
     }
+
+    @POST
+    @Path("push-recalculate-and-encrypt")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String PushRecalculateAndEncrypt(@NotEmpty(message = "is missing a required parameter") String number) {
+        return NSUCipher.getInstance().encrypt(PushAndRecalculate(number).getStandardDeviation().toString());
+    }
+
+    @POST
+    @Path("decrypt")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String Decrypt(@NotEmpty(message = "is missing a required parameter") String encrypted) {
+        return NSUCipher.getInstance().decrypt(encrypted);
+    }
+
 }
