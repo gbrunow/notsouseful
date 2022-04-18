@@ -23,12 +23,12 @@ public class Stats {
     @JsonProperty("standardDeviation")
     public BigDecimal getStandardDeviation() {
         return this.populationSize.equals(BigDecimal.ZERO)
-            ? BigDecimal.ZERO
-            : this.sumOfSquares
-                .multiply(this.populationSize)
-                .subtract(this.average.multiply(this.populationSize).pow(2))
-                .divide(this.populationSize.pow(2), MathContext.DECIMAL128)
-                .sqrt(MathContext.DECIMAL128);
+                ? BigDecimal.ZERO
+                : this.sumOfSquares
+                        .multiply(this.populationSize)
+                        .subtract(this.average.multiply(this.populationSize).pow(2))
+                        .divide(this.populationSize.pow(2), MathContext.DECIMAL128)
+                        .sqrt(MathContext.DECIMAL128);
     }
 
     public void addSample(BigDecimal sample) {
@@ -37,15 +37,13 @@ public class Stats {
         if (this.populationSize.equals(BigDecimal.ONE)) {
             this.average = sample;
         } else {
-            // (avg * (n -1) / (n)) + (sample/n)
-
             this.average = this.populationSize
-                .subtract(BigDecimal.ONE)
-                .divide(this.populationSize, MathContext.DECIMAL128)
-                .multiply(this.average)
-                .add(sample.divide(this.populationSize, MathContext.DECIMAL128));
+                    .subtract(BigDecimal.ONE)
+                    .divide(this.populationSize, MathContext.DECIMAL128)
+                    .multiply(this.average)
+                    .add(sample.divide(this.populationSize, MathContext.DECIMAL128));
         }
-        
+
         this.sumOfSquares = this.sumOfSquares.add(sample.pow(2));
     }
 }
